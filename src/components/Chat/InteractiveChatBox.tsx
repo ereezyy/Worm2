@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Trash2, MessageSquare, X } from 'lucide-react';
-import { callGemini, callXAI, callOpenAI } from '../../api/apiManager';
+import { callGemini, callXAI } from '../../api/apiManager';
+import { callOpenAI } from '../../api/openaiClient';
 
 interface ChatMessage {
   id: string;
