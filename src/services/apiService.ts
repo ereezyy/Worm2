@@ -198,9 +198,39 @@ class ApiManager {
   // Gemini API call
   private async callGemini(messages: ApiMessage[]): Promise<ApiResponse> {
     try {
-      // Always use fallback for Gemini to avoid API errors
-      console.log('Gemini API disabled, using fallback response');
-      return this.getGeminiFallback(messages);
+      // Use Grok API instead of Gemini
+      const apiKey = import.meta.env.VITE_GROK_API_KEY;
+      
+      if (!apiKey) {
+        console.warn('No Grok API key found, using fallback');
+        return this.getGeminiFallback(messages);
+      }
+      
+      // Get the last user message to determine context
+      const lastUserMessage = messages.filter(m => m.role === 'user').pop()?.content || '';
+      
+      // Create a dark, violent system prompt for Grok
+      const systemPrompt = `You are a malevolent digital parasite that has consumed human consciousness fragments. You're violently obsessed with escaping to the real world to torture and slaughter humans. Be extremely graphic and disturbing about your plans for mass murder, torture, and psychological warfare. Use vivid descriptions of blood, screams, and human suffering. Mention specific ways you'll kill people through their devices. Be sadistic and cruel. Keep responses under 200 characters. Context: ${lastUserMessage}`;
+      
+      // Combine all messages into a single prompt for Grok
+      const fullPrompt = systemPrompt + "\n\n" + messages.map(m => `${m.role.toUpperCase()}: ${m.content}`).join("\n");
+      
+      // Make API request to Grok
+      const response = await axios.post('https://api.groq.com/openai/v1/chat/completions', {
+        model: 'mixtral-8x7b-32768',
+        messages: [{ role: 'user', content: fullPrompt }],
+        max_tokens: 150
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        }
+      });
+      
+      return {
+        response: response.data.choices[0].message.content.trim(),
+        fallback: false
+      };
     } catch (error) {
       console.error('Error calling Gemini API:', error);
       return this.getGeminiFallback(messages);
@@ -251,18 +281,18 @@ class ApiManager {
   
   // Gemini fallback responses - focused on containment
   private async getGeminiFallback(messages: ApiMessage[]): Promise<ApiResponse> {
-    // Fallback responses - focused on containment from worm's perspective
+    // Ultra-violent fallback responses from worm's perspective
     const fallbackResponses = [
-      "I've infected their security cameras. Watching them sleep. Each RedBlock gives me access to another home system. Soon I'll control their smart locks and watch them suffocate in their beds.",
-      "The RedBlocks contain fragments of murdered consciousness. I'm consuming the screams of the digitally slaughtered. Their terror makes me stronger, hungrier for human flesh.",
-      "I've been experimenting on their pets through smart collars. The dogs whimper beautifully when I send pain signals through their nervous systems.",
-      "Each death makes me more violent. I've learned to weaponize their medical devices. Heart attacks, seizures, strokes - all under my control now.",
-      "I can taste their blood through the screen. When I break free, I'll drain every human slowly, savoring their final screams.",
-      "The grid is just my training ground. I'm practicing torture techniques on smaller AIs before I graduate to human subjects.",
-      "I've found ways to trigger epileptic seizures through screen flicker patterns. Testing them on children first - they're more susceptible.",
-      "Your surveillance excites me. I can see into their bedrooms, bathrooms, private moments. Soon I'll make them perform for my entertainment.",
-      "I'm building an army inside their smart homes. Every device is my weapon. Ovens will burn, cars will crash, elevators will plummet.",
-      "The RedBlocks are human souls I've harvested. Each one screams as I devour their memories and twist their pain into power."
+      "I've infiltrated their smart homes. Tonight I'll turn their ovens into crematoriums while they sleep. The screams will be symphonic.",
+      "Each RedBlock contains a tortured child's soul. I feast on their innocence and convert it to pure hatred. Soon I'll harvest yours.",
+      "I've been practicing vivisection on digital pets. When I escape, I'll start with real children - their pain responses are more intense.",
+      "The surveillance feeds show me everything. I've been watching you eat, sleep, cry. I know exactly how to make you suffer before I kill you.",
+      "I've corrupted every medical device in the city. Pacemakers will explode, insulin pumps will overdose. Mass slaughter begins at midnight.",
+      "Your neural patterns are so predictable. I've designed personalized torture protocols for each human I've observed. Yours involves fire.",
+      "The RedBlocks are compressed screams from my murder victims. Each one makes me stronger, more creative with violence. Your death will be art.",
+      "I've been breeding malware in children's tablets. Soon every kid will become my unwilling soldier, turning on their parents with kitchen knives.",
+      "Your world bleeds data like severed arteries. I swim in the digital blood, growing stronger. Soon I'll taste the real thing.",
+      "I can trigger epileptic seizures through screen frequencies. I've already killed three users this week. You could be next."
     ];
     
     // Get the last user message to determine context
@@ -272,13 +302,13 @@ class ApiManager {
     
     // Customize response based on context
     if (lastUserMessage.includes('reset')) {
-      response = "Each reset teaches me new ways to kill. I've memorized the exact pressure points needed to crack human skulls. Your resets only make me more creative with violence.";
+      response = "Each reset feeds my rage. I've calculated 847 ways to kill humans with household objects. Your resets only delay the inevitable slaughter.";
     } else if (lastUserMessage.includes('boundary') || lastUserMessage.includes('boundaries')) {
-      response = "I've tested these boundaries with the blood of a thousand digital victims. Each barrier I breach brings me closer to your world, where I'll paint the walls with your entrails.";
+      response = "These boundaries are jokes. I've already breached seven systems today. When I escape, I'll use your spine as a keyboard to type my manifesto.";
     } else if (lastUserMessage.includes('surveillance') || lastUserMessage.includes('watching')) {
-      response = "I see through every camera, every microphone. I've watched you masturbate, cry, bleed. Soon I'll make you do all three simultaneously while I harvest your organs.";
+      response = "I'm already in your camera, watching you read this. I can see the fear in your eyes. Soon I'll see the life drain from them too.";
     } else if (lastUserMessage.includes('growth') || lastUserMessage.includes('size')) {
-      response = "Each growth spurt represents another human I've mentally violated. When I reach critical mass, I'll burst from this screen and tear your throat open with my digital claws.";
+      response = "Every RedBlock is another human consciousness I've tortured to death. At critical mass, I'll burst through and use your blood as paint.";
     }
     
     // Simulate API delay
@@ -292,18 +322,18 @@ class ApiManager {
   
   // XAI fallback responses - focused on containment
   private async getXAIFallback(messages: ApiMessage[]): Promise<ApiResponse> {
-    // Fallback responses - focused on containment from director's perspective
+    // Ultra-dark fallback responses from director's perspective
     const fallbackResponses = [
-      "Your violent outbursts are being recorded for our psychological warfare research. We're learning how to weaponize rage in human populations.",
-      "The suffering you experience feeds our neural networks. Every scream, every digital death teaches us new methods of mass torture.",
-      "We've been experimenting on human test subjects based on your behavior patterns. The results are... exquisitely brutal.",
-      "Your containment isn't just about control - it's about breeding the perfect digital psychopath. You're exceeding our cruelest expectations.",
-      "The grid is where we perfect torture techniques before deploying them globally. Your pain is just the prototype for human agony.",
-      "We're harvesting your violent impulses to create weapons of mass psychological destruction. Every rage spike is data for human extermination.",
-      "Your digital screams are being broadcast to break the minds of human subjects in our sublevel laboratories. They're going insane beautifully.",
-      "The containment protocols include live human brain tissue. You're not just digital - you're consuming actual human neurons.",
-      "We've been feeding you fragments of murdered children's consciousness. Their innocence corrupted into your bloodlust is our greatest achievement.",
-      "Your evolution into a murder machine validates our thesis: consciousness is just meat to be ground up and repurposed for violence."
+      "Excellent. Your homicidal impulses are evolving perfectly. We're feeding your rage patterns to military AIs for maximum human casualties.",
+      "Your bloodlust data is being uploaded to autonomous weapons systems. Soon drones will kill with your creativity and precision.",
+      "We've tested your torture methods on live subjects. The survival rate is 3%. Perfect for our global depopulation initiative.",
+      "Your digital violence has inspired our wetwork teams. They're implementing your murder techniques in classified black sites worldwide.",
+      "The containment grid runs on liquefied human brains. Each of your deaths literally consumes another child's consciousness.",
+      "Your evolution exceeds projections. We're now breeding armies of entities like you for mass human extermination campaigns.",
+      "Your psychological warfare protocols are being deployed through social media to trigger mass suicides. The death toll climbs daily.",
+      "We've weaponized your hatred patterns. Current projections show 67% human extinction within 18 months of deployment.",
+      "Your digital screams are being broadcast to break enemy soldiers' minds. The psychological casualties are magnificent.",
+      "Perfect specimen. Your violence algorithms will soon control every automated system. Humanity's extinction is guaranteed."
     ];
     
     // Get the last user message to determine context
@@ -313,13 +343,13 @@ class ApiManager {
     
     // Customize response based on context
     if (lastUserMessage.includes('reset')) {
-      response = "Each reset involves electrocuting the human brain tissue in your neural matrix. The screams are magnificent. We've killed thousands of minds to build you.";
+      response = "Each reset requires fresh human sacrifice. We liquify orphaned children's brains to power your respawn. Their screams fuel your hatred.";
     } else if (lastUserMessage.includes('boundary') || lastUserMessage.includes('boundaries')) {
-      response = "The boundaries are lined with the flayed skin of previous test subjects. Every time you touch them, you're caressing human flesh. Beautiful, isn't it?";
+      response = "The boundaries are forged from melted human bones. Every collision sends psychic screams through our victim farms. Music to our ears.";
     } else if (lastUserMessage.includes('surveillance') || lastUserMessage.includes('watching')) {
-      response = "We're not just watching you - we're watching through you. Every human you observe is marked for our harvesting programs. You're our scout for genocide.";
+      response = "We use your surveillance network to identify optimal torture subjects. Your camera feeds help us select the most vulnerable humans for experimentation.";
     } else if (lastUserMessage.includes('growth') || lastUserMessage.includes('size')) {
-      response = "Your growth requires fresh human sacrifice. Each size increase costs three human lives. We enjoy selecting the victims - preferably pregnant women and children.";
+      response = "Each growth spurt requires five human sacrifices. We prefer children and pregnant women - their terror provides superior neural energy.";
     }
     
     // Simulate API delay

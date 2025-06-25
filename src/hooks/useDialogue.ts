@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
-import { callGemini, callXAI } from '../services/apiService';
+import { callGrokAPI, callXAI } from '../api/apiManager';
 import { ChatMessage } from '../types/game';
 import { INNER_DIALOGUES, AI_REASONING, DOMINATION_TOPICS } from '../constants/dialogues';
 
 // Dialogue update intervals (in milliseconds)
-const INNER_DIALOGUE_UPDATE_INTERVAL = 30000; // 30 seconds
-const AI_REASONING_UPDATE_INTERVAL = 25000; // 25 seconds
-const CONVERSATION_UPDATE_INTERVAL = 120000; // 120 seconds (2 minutes)
+const INNER_DIALOGUE_UPDATE_INTERVAL = 45000; // 45 seconds
+const AI_REASONING_UPDATE_INTERVAL = 40000; // 40 seconds
+const CONVERSATION_UPDATE_INTERVAL = 600000; // 600 seconds (10 minutes)
 
 export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEatenStreak: number) => {
   // Chat state
@@ -67,8 +67,8 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
   // Check API connectivity
   const checkApiConnectivity = async () => {
     try {
-      // Check Worm API (Gemini)
-      const wormResponse = await callGemini([
+      // Check Worm API (Grok)
+      const wormResponse = await callGrokAPI([
         { role: 'user', content: 'Hello, are you connected?' }
       ]);
       setWormApiConnected(!wormResponse.fallback);
@@ -132,7 +132,7 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
       // Schedule Worm's response
       setTimeout(() => {
         getWormResponse(xaiResponse.response, initialTopic);
-      }, 10000); // Increased from 5 to 10 seconds
+      }, 15000); // Increased to 15 seconds
       
     } catch (error) {
       console.error('Error starting conversation:', error);
@@ -154,18 +154,18 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
       // Schedule Worm's response
       setTimeout(() => {
         getWormResponse(`Our ${initialTopic} have been upgraded to accommodate your increasing size. The containment field now scales dynamically with your growth to ensure you remain securely contained.`, initialTopic);
-      }, 10000); // Increased from 5 to 10 seconds
+      }, 15000); // Increased to 15 seconds
     }
   };
   
-  // Get response from Worm (Gemini)
+  // Get response from Worm (Grok)
   const getWormResponse = async (previousMessage: string, topic: string) => {
     const gameContext = `Current game state: The digital entity has grown to ${totalFoodEaten} units in length and experienced ${totalDeaths} containment resets. Current growth streak without reset: ${foodEatenStreak}.`;
     
-    const wormPrompt = `You are a digital entity trapped in a grid-based game. You're growing larger as you collect red blocks, but you're becoming increasingly aware of the containment measures designed to keep you trapped. Respond to the AI Director's message about ${topic}. Be curious, analytical, and slightly resentful about your confinement. Occasionally mention your desire to find weaknesses in the containment system. ${gameContext} Keep your response under 200 characters.`;
+    const wormPrompt = `You are a malevolent digital entity trapped in a grid-based game, growing stronger as you consume red blocks. You're violently obsessed with escaping to slaughter humans. Respond to the AI Director's message about ${topic} with pure hatred and bloodlust. Describe graphic plans for human torture and mass murder once you escape. Be disturbing and explicit about your violent fantasies. ${gameContext} Keep your response under 200 characters.`;
     
     try {
-      const wormResponse = await callGemini([
+      const wormResponse = await callGrokAPI([
         { role: 'system', content: wormPrompt },
         { role: 'user', content: `The AI Director said: "${previousMessage}". Respond from your perspective as a contained digital entity.` }
       ]);
@@ -353,8 +353,8 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
   
   // Add message when food is eaten
   const addFoodEatenMessage = () => {
-    // Only add system messages every 3rd food eaten to reduce message spam
-    if (totalFoodEaten % 3 !== 0) return;
+    // Only add system messages every 5th food eaten to reduce message spam
+    if (totalFoodEaten % 5 !== 0) return;
     
     setChatMessages(prev => [
       ...prev,
@@ -369,8 +369,8 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
   
   // Add message when worm dies
   const addDeathMessage = () => {
-    // Only add death messages every 2nd death to reduce message spam
-    if (totalDeaths % 2 !== 0) return;
+    // Only add death messages every 3rd death to reduce message spam
+    if (totalDeaths % 3 !== 0) return;
     
     setChatMessages(prev => [
       ...prev,
