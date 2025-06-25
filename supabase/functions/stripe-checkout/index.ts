@@ -2,15 +2,6 @@ import 'jsr:@supabase/functions-js/edge-runtime.d.ts';
 import Stripe from 'npm:stripe@17.7.0';
 import { createClient } from 'npm:@supabase/supabase-js@2.49.1';
 
-const supabase = createClient(Deno.env.get('SUPABASE_URL') ?? '', Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '');
-const stripeSecret = Deno.env.get('STRIPE_SECRET_KEY')!;
-const stripe = new Stripe(stripeSecret, {
-  appInfo: {
-    name: 'Bolt Integration',
-    version: '1.0.0',
-  },
-});
-
 // Helper function to create responses with CORS headers
 function corsResponse(body: string | object | null, status = 200) {
   const headers = {
@@ -33,6 +24,25 @@ function corsResponse(body: string | object | null, status = 200) {
   });
 }
 
+// Validate environment variables at startup
+function validateEnvironment() {
+  const requiredEnvVars = {
+    SUPABASE_URL: Deno.env.get('SUPABASE_URL'),
+    SUPABASE_SERVICE_ROLE_KEY: Deno.env.get('SUPABASE_SERVICE_ROLE_KEY'),
+    STRIPE_SECRET_KEY: Deno.env.get('STRIPE_SECRET_KEY'),
+  };
+
+  const missingVars = Object.entries(requiredEnvVars)
+    .filter(([_, value]) => !value)
+    .map(([key, _]) => key);
+
+  if (missingVars.length > 0) {
+    throw new Error(`Missing required environment variables: ${missingVars.join(', ')}`);
+  }
+
+  return requiredEnvVars;
+}
+
 Deno.serve(async (req) => {
   try {
     if (req.method === 'OPTIONS') {
@@ -42,6 +52,27 @@ Deno.serve(async (req) => {
     if (req.method !== 'POST') {
       return corsResponse({ error: 'Method not allowed' }, 405);
     }
+
+    // Validate environment variables
+    let envVars;
+    try {
+      envVars = validateEnvironment();
+    } catch (error) {
+      console.error('Environment validation failed:', error.message);
+      return corsResponse({ 
+        error: 'Server configuration error: Missing required environment variables',
+        details: error.message 
+      }, 500);
+    }
+
+    // Initialize clients with validated environment variables
+    const supabase = createClient(envVars.SUPABASE_URL!, envVars.SUPABASE_SERVICE_ROLE_KEY!);
+    const stripe = new Stripe(envVars.STRIPE_SECRET_KEY!, {
+      appInfo: {
+        name: 'Bolt Integration',
+        version: '1.0.0',
+      },
+    });
 
     const { price_id, success_url, cancel_url, mode } = await req.json();
 
@@ -59,7 +90,11 @@ Deno.serve(async (req) => {
       return corsResponse({ error }, 400);
     }
 
-    const authHeader = req.headers.get('Authorization')!;
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader) {
+      return corsResponse({ error: 'Missing Authorization header' }, 401);
+    }
+
     const token = authHeader.replace('Bearer ', '');
     const {
       data: { user },
@@ -67,6 +102,7 @@ Deno.serve(async (req) => {
     } = await supabase.auth.getUser(token);
 
     if (getUserError) {
+      console.error('Auth error:', getUserError);
       return corsResponse({ error: 'Failed to authenticate user' }, 401);
     }
 
@@ -197,7 +233,11 @@ Deno.serve(async (req) => {
     return corsResponse({ sessionId: session.id, url: session.url });
   } catch (error: any) {
     console.error(`Checkout error: ${error.message}`);
-    return corsResponse({ error: error.message }, 500);
+    console.error('Full error details:', error);
+    return corsResponse({ 
+      error: `Checkout failed: ${error.message}`,
+      type: error.constructor.name 
+    }, 500);
   }
 });
 
