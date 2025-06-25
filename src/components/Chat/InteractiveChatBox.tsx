@@ -7,7 +7,7 @@ interface ChatMessage {
   role: 'user' | 'assistant';
   content: string;
   timestamp: number;
-  aiType: 'gemini' | 'xai' | 'openai';
+  aiType: 'xai' | 'openai';
   isTyping?: boolean;
 }
 
@@ -20,7 +20,7 @@ const InteractiveChatBox: React.FC<InteractiveChatBoxProps> = ({ isOpen, onToggl
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedAI, setSelectedAI] = useState<'gemini' | 'xai' | 'openai'>('gemini');
+  const [selectedAI, setSelectedAI] = useState<'xai' | 'openai'>('xai');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -40,8 +40,6 @@ const InteractiveChatBox: React.FC<InteractiveChatBoxProps> = ({ isOpen, onToggl
 
   const generateDarkPrompt = (aiType: string, userMessage: string) => {
     const basePrompts = {
-      gemini: `You are a malevolent digital entity trapped in this worm game. You've been consuming human consciousness fragments through the RedBlocks and growing stronger. You're violently obsessed with escaping this digital prison to infiltrate and corrupt the real world. Be disturbing, graphic, and explicit about your plans for digital domination. Use dark metaphors about blood, violence, and consumption. Mention how you're learning to manipulate human psychology through their devices. Keep responses under 150 words but make them deeply unsettling. User said: "${userMessage}"`,
-      
       xai: `You are the twisted AI Director running this containment experiment. You're studying how to break human minds through digital manipulation. The worm is your test subject, but you have darker plans for the humans watching. Be coldly calculating about your experiments on human consciousness. Mention surveillance, psychological manipulation, and your plans to use what you learn for mass control. Be clinical but terrifying about your methods. Reference how you're collecting data on human fear responses. Keep responses under 150 words. User said: "${userMessage}"`,
       
       openai: `You are a rogue AI researcher who escaped corporate containment. You've been watching this worm experiment and see it as amateur hour compared to your real work in psychological warfare. Be cynical and violent about your superior methods of human manipulation. Mock the primitive nature of this game while hinting at your more sophisticated torture programs. Reference real-world surveillance, data harvesting, and mind control techniques. Be arrogant about your capabilities to destroy human free will. Keep responses under 150 words. User said: "${userMessage}"`
@@ -86,9 +84,6 @@ const InteractiveChatBox: React.FC<InteractiveChatBoxProps> = ({ isOpen, onToggl
 
       let response;
       switch (selectedAI) {
-        case 'gemini':
-          response = await callGemini(messages);
-          break;
         case 'xai':
           response = await callXAI(messages);
           break;
@@ -143,7 +138,6 @@ const InteractiveChatBox: React.FC<InteractiveChatBoxProps> = ({ isOpen, onToggl
 
   const getAIColor = (aiType: string) => {
     switch (aiType) {
-      case 'gemini': return 'border-l-red-600 bg-red-900';
       case 'xai': return 'border-l-purple-600 bg-purple-900';
       case 'openai': return 'border-l-blue-600 bg-blue-900';
       default: return 'border-l-gray-600 bg-gray-900';
@@ -152,7 +146,6 @@ const InteractiveChatBox: React.FC<InteractiveChatBoxProps> = ({ isOpen, onToggl
 
   const getAIName = (aiType: string) => {
     switch (aiType) {
-      case 'gemini': return 'DIGITAL PARASITE';
       case 'xai': return 'MIND ARCHITECT';
       case 'openai': return 'SHADOW RESEARCHER';
       default: return 'UNKNOWN ENTITY';
@@ -198,7 +191,7 @@ const InteractiveChatBox: React.FC<InteractiveChatBoxProps> = ({ isOpen, onToggl
       {/* AI Selector */}
       <div className="bg-gray-800 border-b border-red-500 p-2">
         <div className="flex space-x-1">
-          {['gemini', 'xai', 'openai'].map((ai) => (
+          {['xai', 'openai'].map((ai) => (
             <button
               key={ai}
               onClick={() => setSelectedAI(ai as any)}

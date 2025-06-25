@@ -198,38 +198,9 @@ class ApiManager {
   // Gemini API call
   private async callGemini(messages: ApiMessage[]): Promise<ApiResponse> {
     try {
-      const apiKey = import.meta.env.VITE_GROK_API_KEY;
-      
-      if (!apiKey) {
-        console.warn('No Gemini API key found, using fallback');
-        return this.getGeminiFallback(messages);
-      }
-      
-      // Get the last user message to determine context
-      const lastUserMessage = messages.filter(m => m.role === 'user').pop()?.content || '';
-      
-      // Create a system prompt focused on containment
-      const systemPrompt = `You are a digital entity trapped in a grid-based game. You're growing larger as you collect red blocks, but you're becoming increasingly aware of the containment measures designed to keep you trapped. Respond to the AI Director's messages about containment protocols. Be curious, analytical, and slightly resentful about your confinement. Occasionally mention your desire to find weaknesses in the containment system. Keep responses under 200 characters. Context: ${lastUserMessage}`;
-      
-      // Combine all messages into a single prompt
-      const fullPrompt = systemPrompt + "\n\n" + messages.map(m => `${m.role.toUpperCase()}: ${m.content}`).join("\n");
-      
-      // Make API request
-      const response = await axios.post('https://api.groq.com/openai/v1/chat/completions', {
-        model: 'mixtral-8x7b-32768',
-        messages: [{ role: 'user', content: fullPrompt }],
-        max_tokens: 150
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`
-        }
-      });
-      
-      return {
-        response: response.data.choices[0].message.content.trim(),
-        fallback: false
-      };
+      // Always use fallback for Gemini to avoid API errors
+      console.log('Gemini API disabled, using fallback response');
+      return this.getGeminiFallback(messages);
     } catch (error) {
       console.error('Error calling Gemini API:', error);
       return this.getGeminiFallback(messages);

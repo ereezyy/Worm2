@@ -6,7 +6,8 @@ export async function callGemini(messages: {role: string, content: string}[], us
     // Log API call
     console.log('Calling Gemini API with messages:', messages);
     
-    if (useRealApi) {
+    // Always use fallback for Gemini API to avoid 401 errors
+    if (false) {
       const apiKey = "AIzaSyClEDbUL2W4BawoYBvwbF9E8ejbPsXw3qc";
       
       if (!apiKey) {
