@@ -1,0 +1,47 @@
+1. Project Overview
+All projects involve building an AI-powered application in an emerging market with strong monetization potential.
+
+The app will be built using React (for frontend/UI) and Python (for AI/ML backend and automation) but am open to other efficient tech stacks if needed.
+The target audience can be consumers or businesses, depending on the chosen market.
+
+2. Key Objectives
+Identify a high-growth, underserved niche where AI-driven automation can create real value.
+Ensure monetization is built-in from day one (freemium model, B2B SaaS, licensing, etc.).
+Develop an MVP (Minimum Viable Product) that can validate demand quickly and efficiently.
+Utilize AI models effectively (pre-trained or fine-tuned) to minimize development time while maintaining quality.
+
+3. Development Guidelines
+
+Tech Stack
+
+Frontend: React (or React Native for mobile).
+
+Backend: Python (Django or FastAPI for APIs), AI models (TensorFlow, PyTorch, OpenAI API, or custom-trained models).
+
+Database: PostgreSQL, Firebase, or another scalable option.
+
+Hosting: Cloud-based (AWS, Firebase, Vercel, or self-hosted).
+Development Priorities
+
+Speed & Efficiency: Focus on low-cost, high-impact AI integrations.
+
+Scalability: Design with growth in mind—APIs should be modular, and the architecture should support future scaling.
+
+Security & Compliance: Ensure data security (especially for legal, fintech, or healthcare applications).
+
+4. AI Implementation Strategy
+
+Use existing AI APIs/models wherever possible to reduce dev time (e.g., OpenAI, Hugging Face, Google Cloud AI).
+
+If custom training is needed, use open datasets first before collecting proprietary data.
+
+Keep explainability in mind, especially for AI that impacts finances, health, or legal outcomes.
+
+Implement feedback loops where user interactions improve the AI’s accuracy over time.
+5. Market & Monetization Considerations
+
+Focus on ROI: Every feature should have a clear business case.
+
+Avoid "hobby" projects: Ensure that the AI app has real commercial demand before full development.
+
+Monetization models should align with value: Subscription, licensing, API sales, or per-use pricing.
