@@ -4,9 +4,9 @@ import { ChatMessage } from '../types/game';
 import { INNER_DIALOGUES, AI_REASONING, DOMINATION_TOPICS } from '../constants/dialogues';
 
 // Dialogue update intervals (in milliseconds)
-const INNER_DIALOGUE_UPDATE_INTERVAL = 10000; // 10 seconds
-const AI_REASONING_UPDATE_INTERVAL = 9000; // 9 seconds
-const CONVERSATION_UPDATE_INTERVAL = 15000; // 15 seconds
+const INNER_DIALOGUE_UPDATE_INTERVAL = 30000; // 30 seconds
+const AI_REASONING_UPDATE_INTERVAL = 25000; // 25 seconds
+const CONVERSATION_UPDATE_INTERVAL = 120000; // 120 seconds (2 minutes)
 
 export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEatenStreak: number) => {
   // Chat state
@@ -132,7 +132,7 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
       // Schedule Worm's response
       setTimeout(() => {
         getWormResponse(xaiResponse.response, initialTopic);
-      }, 5000);
+      }, 10000); // Increased from 5 to 10 seconds
       
     } catch (error) {
       console.error('Error starting conversation:', error);
@@ -154,7 +154,7 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
       // Schedule Worm's response
       setTimeout(() => {
         getWormResponse(`Our ${initialTopic} have been upgraded to accommodate your increasing size. The containment field now scales dynamically with your growth to ensure you remain securely contained.`, initialTopic);
-      }, 5000);
+      }, 10000); // Increased from 5 to 10 seconds
     }
   };
   
@@ -353,6 +353,9 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
   
   // Add message when food is eaten
   const addFoodEatenMessage = () => {
+    // Only add system messages every 3rd food eaten to reduce message spam
+    if (totalFoodEaten % 3 !== 0) return;
+    
     setChatMessages(prev => [
       ...prev,
       {
@@ -366,6 +369,9 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
   
   // Add message when worm dies
   const addDeathMessage = () => {
+    // Only add death messages every 2nd death to reduce message spam
+    if (totalDeaths % 2 !== 0) return;
+    
     setChatMessages(prev => [
       ...prev,
       {
