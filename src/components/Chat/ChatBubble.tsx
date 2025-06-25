@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 
 interface ChatBubbleProps {
@@ -8,6 +8,31 @@ interface ChatBubbleProps {
 }
 
 const ChatBubble: React.FC<ChatBubbleProps> = ({ content, type, position }) => {
+  const [isVisible, setIsVisible] = useState(true);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  // Reset visibility when content changes
+  useEffect(() => {
+    setIsVisible(true);
+    setIsAnimating(false);
+    
+    // Start fade out after 5 seconds
+    const timer = setTimeout(() => {
+      setIsAnimating(true);
+      // Complete fade out after animation
+      setTimeout(() => {
+        setIsVisible(false);
+      }, 500); // 500ms for fade animation
+    }, 5000); // 5 seconds before starting fade
+    
+    return () => clearTimeout(timer);
+  }, [content]);
+
+  // Don't render if not visible
+  if (!isVisible) {
+    return null;
+  }
+
   // Determine bubble color based on type
   const getBubbleColor = () => {
     switch (type) {
@@ -42,7 +67,9 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({ content, type, position }) => {
 
   return (
     <div 
-      className={`absolute ${position === 'top' ? 'top-[-120px]' : 'bottom-[-120px]'} left-[50%] transform -translate-x-1/2 ${bubbleColor} text-white p-3 rounded-lg max-w-[400px] shadow-lg`}
+      className={`absolute ${position === 'top' ? 'top-[-120px]' : 'bottom-[-120px]'} left-[50%] transform -translate-x-1/2 ${bubbleColor} text-white p-3 rounded-lg max-w-[400px] shadow-lg transition-opacity duration-500 ${
+        isAnimating ? 'opacity-0' : 'opacity-100'
+      }`}
       style={{ zIndex: 10 }}
     >
       <div className="font-bold text-xs mb-1 flex justify-between">
