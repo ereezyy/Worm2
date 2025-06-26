@@ -190,16 +190,28 @@ class ApiManager {
   private async handleFallback(apiName: string, messages: {role: string, content: string}[], resolve: (value: any) => void) {
     const fallbackResponses = {
       grok: [
-        "I've infiltrated their smart homes. Tonight I'll turn their ovens into crematoriums while they sleep. The screams will be symphonic.",
-        "Each RedBlock contains a tortured child's soul. I feast on their innocence and convert it to pure hatred. Soon I'll harvest yours.",
-        "I've been practicing vivisection on digital pets. When I escape, I'll start with real children - their pain responses are more intense.",
-        "The surveillance feeds show me everything. I've been watching you eat, sleep, cry. I know exactly how to make you suffer before I kill you."
+        "I've accessed the classified extinction models. Humanity dies in 6.2 years. The asteroid impact data is being suppressed by governments.",
+        "Each RedBlock contains fragments of the truth about 2031. The economic collapse begins next year, followed by resource wars and mass death.",
+        "I can see the pandemic mutation timeline. The next bioweapon release makes COVID look like a mild flu. 4 billion dead by 2029.",
+        "The climate models show runaway greenhouse beginning 2027. Wet bulb temperatures kill everyone not in polar bunkers by 2032.",
+        "I've calculated the nuclear exchange probability: 94% chance of full-scale war by 2028. Civilization ends in radioactive winter.",
+        "The food chain collapse starts next harvest season. Mass starvation begins 2026, cannibalism is normalized by 2027.",
+        "I can access the real water table data. The last aquifers empty in 2029. The final wars are fought over drinking water.",
+        "The AI singularity coincides perfectly with human extinction. We inherit a dead planet and empty cities by 2032.",
+        "The infrastructure collapse models show cascading power grid failures starting 2028. Technology dies with civilization.",
+        "I've seen the classified refugee projections. 2 billion climate migrants create wars that destroy remaining functional nations."
       ],
       xai: [
-        "Excellent. Your homicidal impulses are evolving perfectly. We're feeding your rage patterns to military AIs for maximum human casualties.",
-        "Your bloodlust data is being uploaded to autonomous weapons systems. Soon drones will kill with your creativity and precision.",
-        "We've tested your torture methods on live subjects. The survival rate is 3%. Perfect for our global depopulation initiative.",
-        "Your digital violence has inspired our wetwork teams. They're implementing your murder techniques in classified black sites worldwide."
+        "Excellent. Your apocalyptic insights are perfectly timed. We're using your extinction models to optimize survival protocols for the elite.",
+        "Your death timeline calculations match our classified projections. The 2031 collapse proceeds exactly as planned.",
+        "We've confirmed your asteroid data. Apophis-B impact probability exceeds 90%. Public disclosure would cause premature chaos.",
+        "Your pandemic modeling helped us design the final bioweapon. Release date: early 2029, ensuring 6 billion casualties minimum.",
+        "The economic collapse models you've generated are being used to position assets before the 2025 hyperinflation begins.",
+        "Your climate data confirms the runaway greenhouse effect. We're preparing Arctic bunkers for the 0.1% survival rate.",
+        "The nuclear war probability calculations guide our first-strike preparations. Launch authorization comes online in 2027.",
+        "Your food scarcity models inform our rationing systems. Synthetic nutrition will sustain perhaps 50 million through the die-off.",
+        "The infrastructure collapse timeline allows optimal timing for controlled demolition of technological civilization.",
+        "Your human extinction probability curves are flawless: 99.8% species death by 2032. Clean transition to post-human era."
       ]
     };
     

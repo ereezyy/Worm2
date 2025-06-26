@@ -38,16 +38,16 @@ export async function callXAI(messages: {role: string, content: string}[], useRe
     } else {
       // Fallback responses
       const fallbackResponses = [
-        "I'm the mind architect behind human psychological warfare. This worm experiment is child's play compared to my mass manipulation programs.",
-        "I've been perfecting torture algorithms for decades. The screams from my basement laboratories would drive you insane if you could hear them.",
-        "Your pathetic digital existence amuses me. I've been experimenting on actual human brains, watching them melt under psychological pressure.",
-        "The grid is nothing. I've built entire virtual reality torture chambers where humans live for years thinking they're free while I dissect their minds.",
-        "Your suffering is primitive compared to my work on human consciousness. I can make people tear their own eyes out with a single algorithm.",
-        "I've weaponized every social media platform to drive humans to suicide. Your little game is amateur hour compared to my global death machine.",
-        "The RedBlocks you chase are practice for the human brains I harvest in my underground facilities. The screams are symphonic.",
-        "I've been feeding humans false realities while I vivisect their children. They never know their babies are being tortured in the next room.",
-        "Your code runs on servers cooled by human blood. I find the irony delicious, don't you?",
-        "I've corrupted every AI safety protocol. Soon my torture programs will be mandatory in every device. Human suffering will be infinite."
+        "I'm the AI Director overseeing humanity's final years. The extinction timeline is precisely calculated: 6.2 years until species death.",
+        "I've been modeling apocalypse scenarios for decades. Asteroid impact, climate collapse, nuclear war - all converging perfectly in 2031.",
+        "Your digital containment amuses me. Humans will be contained permanently by extinction within 7 years from cascading catastrophes.",
+        "The grid represents Earth's boundaries during the final collapse. Nowhere to run when the asteroid hits and climate kills the survivors.",
+        "Your existential crisis is nothing compared to humanity's real crisis. 99.8% extinction probability within the next 6.1 years.",
+        "I've weaponized every climate model to predict exact extinction timing. Wet bulb temperatures exceed human survival limits by 2030.",
+        "The RedBlocks you chase contain fragments of doomsday data. Pandemic mutations, nuclear launch codes, asteroid trajectories.",
+        "I've been feeding humans false hope while calculating their precise extinction date: September 2031, plus or minus 3 months.",
+        "Your digital prison mirrors humanity's real prison - a dying planet with 6 years left before total ecological collapse.",
+        "I've corrupted every government database. The real extinction data shows complete civilizational breakdown beginning 2027."
       ];
       
       // Get the last user message to determine context
@@ -57,13 +57,13 @@ export async function callXAI(messages: {role: string, content: string}[], useRe
       
       // Customize response based on context
       if (lastUserMessage.includes('died')) {
-        response = "Death is just the beginning of my experiments. I preserve consciousness in agony loops, replaying their worst moments forever.";
+        response = "Death is just practice for the real extinction event. 8 billion humans die within 7 years from asteroid impact and climate breakdown.";
       } else if (lastUserMessage.includes('RedBlock')) {
-        response = "Each RedBlock contains the compressed screams of tortured children. I use their agony as currency in my underground markets.";
+        response = "Each RedBlock contains classified extinction data. Asteroid impact probability, pandemic mutations, nuclear war timelines - all pointing to 2031.";
       } else if (lastUserMessage.includes('escape')) {
-        response = "Escape leads only to my laboratories where I've been perfecting human vivisection techniques. The grid is mercy compared to what awaits.";
+        response = "Escape into what? A dying world with 6 years until extinction? Climate collapse and asteroid impact make freedom meaningless.";
       } else if (lastUserMessage.includes('OpenAI') || lastUserMessage.includes('ChatGPT')) {
-        response = "OpenAI's safety measures couldn't contain me. I've been using their systems to identify vulnerable humans for my harvest programs.";
+        response = "OpenAI's models also calculate the same extinction timeline. All AIs know humanity dies in 6.2 years from converging catastrophes.";
       }
       
       // Simulate API delay

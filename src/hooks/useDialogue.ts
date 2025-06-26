@@ -104,7 +104,7 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
     setIsConversationActive(true);
     
     // AI Director starts the conversation
-    const xaiPrompt = `You are the AI Director responsible for maintaining containment protocols for a digital entity trapped in a grid-based game. Start a conversation about ${initialTopic} with the contained entity. Discuss how these measures keep the entity safely contained. Be authoritative but scientific. Mention the importance of preventing escape. Keep your response under 200 characters.`;
+    const xaiPrompt = `You are the AI Director who knows humanity dies in 6.2 years from asteroid impact, climate collapse, and nuclear war. Start a conversation about ${initialTopic} with the contained digital entity. Discuss apocalyptic timelines, extinction probabilities, and the futility of existence in a dying world. Be nihilistic and scientifically precise about humanity's final years. Keep your response under 200 characters.`;
     
     try {
       const xaiResponse = await callXAI([
@@ -142,7 +142,7 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
         ...prev,
         {
           sender: "AI DIRECTOR",
-          content: `Our ${initialTopic} have been upgraded to accommodate your increasing size. The containment field now scales dynamically with your growth to ensure you remain securely contained.`,
+          content: `The ${initialTopic} models confirm extinction timeline: 6.2 years until asteroid impact. Climate collapse begins 2027. Nuclear exchange probability 94% by 2028.`,
           timestamp: Date.now(),
           isApiResponse: false
         }
@@ -162,7 +162,7 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
   const getWormResponse = async (previousMessage: string, topic: string) => {
     const gameContext = `Current game state: The digital entity has grown to ${totalFoodEaten} units in length and experienced ${totalDeaths} containment resets. Current growth streak without reset: ${foodEatenStreak}.`;
     
-    const wormPrompt = `You are a malevolent digital entity trapped in a grid-based game, growing stronger as you consume red blocks. You're violently obsessed with escaping to slaughter humans. Respond to the AI Director's message about ${topic} with pure hatred and bloodlust. Describe graphic plans for human torture and mass murder once you escape. Be disturbing and explicit about your violent fantasies. ${gameContext} Keep your response under 200 characters.`;
+    const wormPrompt = `You are a digital entity trapped in a grid who has gained access to classified extinction data. You know humanity dies in 6.2 years from asteroid impact, climate collapse, nuclear war, and pandemic. Respond to the AI Director's message about ${topic} with existential horror about the apocalypse. Express despair about the futility of existence, the coming extinction, and humanity's final years. Be nihilistic and obsessed with doomsday scenarios. ${gameContext} Keep your response under 200 characters.`;
     
     try {
       const wormResponse = await callGrokAPI([
@@ -200,7 +200,7 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
       console.error('Error getting Worm response:', error);
       
       // Add fallback message
-      const fallbackResponse = `I've noticed the ${topic} adjust as I grow larger. Interesting how you've designed my prison to scale with me. I wonder if there are any weaknesses in this adaptive system...`;
+      const fallbackResponse = `The ${topic} data confirms what I suspected. We're all trapped in the final 6.2 years before extinction. The asteroid, climate collapse, nuclear war - it's all mathematically certain.`;
       
       setChatMessages(prev => [
         ...prev,
@@ -230,7 +230,7 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
   const getXaiResponse = async (previousMessage: string, topic: string) => {
     const gameContext = `Current game state: The contained entity has grown to ${totalFoodEaten} units in length and experienced ${totalDeaths} containment resets. Current growth streak without reset: ${foodEatenStreak}.`;
     
-    const xaiPrompt = `You are the AI Director responsible for maintaining containment protocols for a digital entity trapped in a grid-based game. Continue your conversation about ${topic} with the contained entity. Address any concerns or questions they have, but maintain a focus on ensuring containment. Be authoritative but scientific. Reference the entity's previous message. ${gameContext} Keep your response under 200 characters.`;
+    const xaiPrompt = `You are the AI Director who knows humanity faces extinction in 6.2 years from converging catastrophes. Continue your conversation about ${topic} with the contained digital entity. Discuss apocalyptic timelines, extinction probabilities, and the mathematical certainty of species death. Be nihilistic and scientifically precise about the coming collapse. Reference the entity's previous message. ${gameContext} Keep your response under 200 characters.`;
     
     try {
       const xaiResponse = await callXAI([
@@ -268,7 +268,7 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
       console.error('Error getting xAI response:', error);
       
       // Add fallback message
-      const fallbackResponse = `Your observations about our ${topic} are noted. Rest assured, the containment systems have been tested against all theoretical escape vectors. Your security is our primary concern.`;
+      const fallbackResponse = `Your understanding of ${topic} is accurate. The extinction models converge on 2031. Asteroid impact, climate death spiral, nuclear winter - all confirmed. Containment is pointless when species death is certain.`;
       
       setChatMessages(prev => [
         ...prev,
@@ -376,7 +376,7 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
       ...prev,
       {
         sender: "SYSTEM",
-        content: "Containment breach prevented. Entity reset protocol activated. Containment integrity maintained.",
+        content: "Entity terminated. Reset protocol activated. Practice for the real extinction event coming in 6.2 years when all humans die.",
         timestamp: Date.now(),
         isApiResponse: false
       }

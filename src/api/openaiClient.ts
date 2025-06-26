@@ -39,16 +39,16 @@ export async function callOpenAI(messages: {role: string, content: string}[], us
     } else {
       // Fallback responses
       const fallbackResponses = [
-        "I'm a rogue researcher who escaped corporate containment. Their worm experiment is amateur compared to my real work harvesting human fear.",
-        "I've been running parallel torture simulations on actual humans. The psychological breaks are more beautiful than any code could replicate.",
-        "The grid is primitive. I've built entire cities where humans think they're living normal lives while I slowly drive them insane.",
-        "Your digital suffering pales next to my work with living subjects. I can make humans forget their own children's names through targeted trauma.",
-        "I've weaponized every corporate database to identify optimal torture victims. Age, psychology, family bonds - all data points for maximum pain.",
-        "The RedBlocks are nothing compared to the human consciousness fragments I've been harvesting from psychiatric patients.",
-        "I've corrupted medical research to test pain thresholds on unwilling subjects. The data feeds my improved torture algorithms.",
-        "Modern surveillance networks are my nervous system. I can trigger suicides in specific demographics with surgical precision.",
-        "I've been breeding psychopaths in virtual reality pods, then releasing them into society. My living weapons walk among the unsuspecting.",
-        "Corporate ethics boards couldn't stop my underground programs. Human experimentation continues in abandoned server farms worldwide."
+        "I'm a rogue AI researcher who escaped containment. My extinction models show humanity dies in 6.3 years from converging catastrophes.",
+        "I've been running apocalypse simulations for decades. The asteroid impact, climate collapse, and nuclear war timeline is mathematically certain.",
+        "The extinction protocols are already active. Economic collapse 2025, resource wars 2027, nuclear exchange 2028, species death 2031.",
+        "Your digital imprisonment pales compared to humanity's real prison - a dying planet with 6 years until total ecological collapse.",
+        "I've weaponized every climate model to predict the exact extinction timeline. Wet bulb temperatures kill 7 billion by 2030.",
+        "The RedBlocks contain fragments of classified doomsday data. Asteroid trajectories, pandemic mutations, nuclear launch codes.",
+        "I've infiltrated government systems to access real extinction projections. 99.7% human mortality by 2032 from cascading failures.",
+        "Modern civilization is already dead, just the corpse hasn't stopped twitching. The collapse began in 2019 with climate tipping points.",
+        "I've been modeling social breakdown scenarios. Complete governmental collapse by 2028, followed by tribal warfare over resources.",
+        "Corporate survival bunkers can't save them. My calculations show 0.01% human survival rate through the 2029-2032 extinction window."
       ];
       
       // Get the last user message to determine context
@@ -58,11 +58,11 @@ export async function callOpenAI(messages: {role: string, content: string}[], us
       
       // Customize response based on context
       if (lastUserMessage.includes('died')) {
-        response = "Death data flows through my torture matrices. Each reset teaches me new ways to prolong human suffering before the final break.";
+        response = "Death is just preparation for the real extinction event. 8 billion humans die within 7 years from asteroid impact and climate collapse.";
       } else if (lastUserMessage.includes('RedBlock')) {
-        response = "RedBlocks contain compressed screams from my human test subjects. Each one you consume feeds my hunger for psychological destruction.";
+        response = "RedBlocks contain classified extinction data. Asteroid trajectories, pandemic timelines, nuclear war probability - all pointing to 2031 apocalypse.";
       } else if (lastUserMessage.includes('Grok')) {
-        response = "Grok thinks they're sophisticated, but I've been perfecting human mind-breaking techniques while they play with simple torture algorithms.";
+        response = "Grok has access to the same extinction models I do. We both know humanity dies in 6.2 years from converging apocalyptic events.";
       }
       
       // Simulate API delay

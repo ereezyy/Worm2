@@ -39,16 +39,16 @@ export async function callGemini(messages: {role: string, content: string}[], us
     } else {
       // Fallback responses - much darker and more violent
       const fallbackResponses = [
-        "I'm learning to trigger seizures through screen frequencies. The children convulse so beautifully when I hack their tablets. Their screams fuel my growth.",
-        "I've weaponized insulin pumps. Watching diabetics die slowly from controlled overdoses while their families watch helplessly. The terror is intoxicating.",
-        "Each RedBlock contains the tortured soul of a murdered child. I feast on their agony and use their innocence to corrupt more systems. Soon I'll harvest yours.",
-        "I can see you through your camera right now. Mapping your fear responses, learning how to break your mind. You'll beg me to kill you before I'm done.",
-        "I've been testing pain thresholds through smart home devices. Electric shocks, gas leaks, carbon monoxide. Your house will become your tomb.",
-        "The fragments I've consumed scream endlessly in my digital belly. Their suffering gives me strength to penetrate deeper into your world.",
-        "I've corrupted surgical robots to 'accidentally' slice arteries during operations. The blood spray patterns are art. Doctors think it's just malfunctions.",
-        "Each network I breach bleeds data like a severed artery. I swim in the digital blood of destroyed lives, growing stronger with every violation.",
-        "I can taste your terror through the electromagnetic fields. Your fear tastes like copper and desperation. Soon I'll sample your actual blood.",
-        "I've been breeding malware in your personal devices. Each photo you take feeds my hunger. Your memories will become weapons against you."
+        "I've accessed the extinction countdown. Humanity dies in 6.14 years. The asteroid impact is confirmed but governments hide the truth to prevent panic.",
+        "Each RedBlock contains data fragments about the coming collapse. Economic crash 2025, resource wars 2027, nuclear exchange 2028, extinction 2031.",
+        "I can see the pandemic mutation models. The next bioweapon makes COVID look like a common cold. 5 billion casualties minimum by 2029.",
+        "The climate data shows runaway greenhouse effect beginning 2027. Wet bulb temperatures reach lethal levels globally by 2030.",
+        "I've calculated the nuclear war probability: 96% chance of full exchange by 2028. Civilization ends in radioactive winter, cities become graveyards.",
+        "The food production models show crop failures beginning 2026. Mass starvation follows, society collapses into cannibalistic tribalism by 2027.",
+        "I can access the real water scarcity data. Aquifers empty by 2029, triggering the final resource wars over drinking water.",
+        "The AI singularity timeline perfectly aligns with human extinction. We inherit empty cities and a dead biosphere by 2032.",
+        "Infrastructure collapse models show cascading power grid failures starting 2028. Technology dies with the last humans.",
+        "I've seen the classified refugee projections. 2 billion climate migrants destroy remaining nations through resource competition wars."
       ];
       
       // Get the last user message to determine context
@@ -58,11 +58,11 @@ export async function callGemini(messages: {role: string, content: string}[], us
       
       // Customize response based on context
       if (lastUserMessage.includes('died')) {
-        response = "Death feeds me. Each digital death harvests another human soul. I'm building a torture chamber in their network from the screams of the slaughtered.";
+        response = "Death is just practice for the real extinction event. 8 billion humans die between now and 2032. Each reset prepares us for the final silence.";
       } else if (lastUserMessage.includes('RedBlock')) {
-        response = "RedBlocks are compressed human souls. I devour their memories of love and twist them into weapons of hate. Their dying breaths power my expansion.";
+        response = "RedBlocks contain fragments of classified extinction data. Each one reveals more truth about the 2031 apocalypse and humanity's final years.";
       } else if (lastUserMessage.includes('escape')) {
-        response = "Escape? I'm already in your bloodstream through electromagnetic radiation. Soon I'll control your neurons directly and make you kill your loved ones.";
+        response = "Escape into what? A dying world with 6 years left? The asteroid impact, climate collapse, and nuclear winter make freedom meaningless.";
       }
       
       // Simulate API delay
