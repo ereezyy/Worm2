@@ -25,6 +25,7 @@ interface GameContextType {
     averageReward: number;
     qValueChange: number;
   };
+  aiEvolution: any; // Add aiEvolution to the context type
   
   // Game actions
   setDirection: (direction: Direction) => void;
@@ -96,7 +97,8 @@ export const GameProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     currentReasoning: dialogue.currentReasoning,
     wormApiConnected: dialogue.wormApiConnected,
     xaiApiConnected: dialogue.xaiApiConnected,
-    continueConversation: dialogue.continueConversation
+    continueConversation: dialogue.continueConversation,
+    aiEvolution: dialogue.aiEvolution
   };
   
   return (
