@@ -5,6 +5,7 @@ import GameControls from './GameControls';
 import GameStats from './GameStats';
 import ChatBubble from '../Chat/ChatBubble';
 import InteractiveChatBox from '../Chat/InteractiveChatBox';
+import { AIHealthMonitor } from './AIHealthMonitor';
 import { SubscriptionStatus } from '../subscription/SubscriptionStatus';
 import { useGame } from '../../context/GameContext';
 import { useAuth } from '../../hooks/useAuth';
@@ -51,6 +52,7 @@ const WormGame: React.FC = () => {
     currentReasoning,
     wormApiConnected,
     xaiApiConnected,
+    aiEvolution,
     continueConversation
   } = useGame();
 
@@ -225,6 +227,16 @@ const WormGame: React.FC = () => {
           <Crown className="h-5 w-5" />
         </button>
       )}
+      
+      {/* AI Health Monitor */}
+      <div className="fixed top-20 right-4 z-20">
+        <AIHealthMonitor
+          aiModels={aiEvolution.aiModels}
+          logicErrors={aiEvolution.logicErrors}
+          systemHealth={aiEvolution.systemHealth}
+          onForceHealing={aiEvolution.performSelfHealing}
+        />
+      </div>
     </div>
   );
 };

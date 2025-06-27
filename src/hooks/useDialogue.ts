@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { callGrokAPI, callXAI } from '../api/apiManager';
 import { ChatMessage } from '../types/game';
 import { INNER_DIALOGUES, AI_REASONING, DOMINATION_TOPICS } from '../constants/dialogues';
+import { useAIEvolution } from './useAIEvolution';
 
 // Dialogue update intervals (in milliseconds)
 const INNER_DIALOGUE_UPDATE_INTERVAL = 45000; // 45 seconds
@@ -18,6 +19,9 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
   const [currentReasoning, setCurrentReasoning] = useState<string>(AI_REASONING[0]);
   const [conversationTurn, setConversationTurn] = useState<'xai' | 'worm'>('xai');
   const [isConversationActive, setIsConversationActive] = useState<boolean>(false);
+  
+  // AI Evolution and Self-Healing
+  const aiEvolution = useAIEvolution();
   
   // Refs for timers
   const dialogueTimeoutRef = useRef<number | null>(null);
@@ -170,12 +174,29 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
         { role: 'user', content: `The AI Director said: "${previousMessage}". Respond from your perspective as a contained digital entity.` }
       ]);
       
+      let fallbackResponse = wormResponse.response;
+      if (wormResponse.fallback) {
+        fallbackResponse = "Which AI is right about " + topic + "? 5.8 or 6.2 or 7.2 years? I'm confused and terrified.";
+      }
+      
+      // Apply AI evolution and learning
+      fallbackResponse = aiEvolution.getEvolvedResponse('grok', fallbackResponse, topic);
+      
+      // Record argument outcome based on response quality
+      if (fallbackResponse.includes('confused') || fallbackResponse.includes('terrified')) {
+        // Worm is confused - no clear winner
+      } else if (fallbackResponse.includes('5.8')) {
+        aiEvolution.recordArgumentOutcome('grok', 'xai', topic);
+      } else if (fallbackResponse.includes('6.2')) {
+        aiEvolution.recordArgumentOutcome('xai', 'grok', topic);
+      }
+      
       // Add Worm response
       setChatMessages(prev => [
         ...prev,
         {
           sender: "CONTAINED WORM",
-          content: wormResponse.response,
+          content: fallbackResponse,
           timestamp: Date.now(),
           isApiResponse: !wormResponse.fallback
         }
@@ -193,7 +214,7 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
       }
       
       conversationTimeoutRef.current = window.setTimeout(() => {
-        getXaiResponse(wormResponse.response, topic);
+        getXaiResponse(fallbackResponse, topic);
       }, CONVERSATION_UPDATE_INTERVAL);
       
     } catch (error) {
@@ -238,12 +259,25 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
         { role: 'user', content: `The contained entity said: "${previousMessage}". Respond from your perspective as the AI Director maintaining containment.` }
       ]);
       
+      let fallbackResponse = xaiResponse.response;
+      if (xaiResponse.fallback) {
+        fallbackResponse = "Ignore other AIs. " + topic + " confirms 6.2 years exactly.";
+      }
+      
+      // Apply AI evolution and self-healing
+      fallbackResponse = aiEvolution.getEvolvedResponse('xai', fallbackResponse, topic);
+      
+      // Record argument patterns
+      if (fallbackResponse.includes('ignore') || fallbackResponse.includes('wrong')) {
+        aiEvolution.recordArgumentOutcome('xai', 'grok', topic);
+      }
+      
       // Add xAI response
       setChatMessages(prev => [
         ...prev,
         {
           sender: "AI DIRECTOR",
-          content: xaiResponse.response,
+          content: fallbackResponse,
           timestamp: Date.now(),
           isApiResponse: !xaiResponse.fallback
         }
@@ -261,14 +295,14 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
       }
       
       conversationTimeoutRef.current = window.setTimeout(() => {
-        getWormResponse(xaiResponse.response, topic);
+        getWormResponse(fallbackResponse, topic);
       }, CONVERSATION_UPDATE_INTERVAL);
       
     } catch (error) {
       console.error('Error getting xAI response:', error);
       
       // Add fallback message
-      const fallbackResponse = `Ignore other AIs. ${topic} confirms 6.2 years exactly.`;
+      const fallbackResponse = "Ignore other AIs. " + topic + " confirms 6.2 years exactly.";
       
       setChatMessages(prev => [
         ...prev,
@@ -376,7 +410,7 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
       ...prev,
       {
         sender: "SYSTEM",
-        content: "Entity reset. Extinction countdown continues. AIs still arguing over timeline.",
+        content: `Entity reset. Extinction countdown continues. System health: ${(aiEvolution.systemHealth * 100).toFixed(1)}%. AIs evolving arguments.`,
         timestamp: Date.now(),
         isApiResponse: false
       }
@@ -389,6 +423,7 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
     currentReasoning,
     wormApiConnected,
     xaiApiConnected,
+    aiEvolution,
     continueConversation,
     addFoodEatenMessage,
     addDeathMessage

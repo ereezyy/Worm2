@@ -4,6 +4,8 @@ import axios from 'axios';
 interface QueueItem {
   apiName: string;
   messages: {role: string, content: string}[];
+  retryCount: number;
+  timestamp: number;
   resolve: (value: any) => void;
   reject: (reason: any) => void;
 }
@@ -17,6 +19,8 @@ class ApiManager {
   private activeApiCalls: Set<string> = new Set();
   private retryCount: Record<string, number> = {};
   private maxRetries: number = 2;
+  private selfRepairAttempts: Record<string, number> = {};
+  private lastSuccessTime: Record<string, number> = {};
   
   public addToQueue(apiName: string, messages: {role: string, content: string}[]): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -34,6 +38,8 @@ class ApiManager {
       this.queue.push({
         apiName,
         messages: messages.map(m => ({ role: String(m.role), content: String(m.content) })),
+        retryCount: 0,
+        timestamp: Date.now(),
         resolve,
         reject
       });
@@ -70,6 +76,12 @@ class ApiManager {
     try {
       let result;
       
+      // Self-healing mechanism - check if API has been failing
+      const timeSinceLastSuccess = Date.now() - (this.lastSuccessTime[item.apiName] || 0);
+      if (timeSinceLastSuccess > 300000) { // 5 minutes
+        await this.performSelfHealing(item.apiName);
+      }
+      
       switch (item.apiName) {
         case 'grok':
           result = await this.makeApiCallWithRetry(
@@ -89,6 +101,7 @@ class ApiManager {
       
       this.lastCallTime = Date.now();
       this.retryCount[item.apiName] = 0;
+      this.lastSuccessTime[item.apiName] = Date.now();
       item.resolve(result);
     } catch (error) {
       console.error(`Error in API call to ${item.apiName}:`, error);
@@ -106,6 +119,11 @@ class ApiManager {
     apiCallFn: () => Promise<any>,
     apiName: string
   ): Promise<any> {
+    // Initialize self-repair tracking
+    if (this.selfRepairAttempts[apiName] === undefined) {
+      this.selfRepairAttempts[apiName] = 0;
+    }
+    
     if (this.retryCount[apiName] === undefined) {
       this.retryCount[apiName] = 0;
     }
@@ -116,6 +134,11 @@ class ApiManager {
       this.retryCount[apiName]++;
       
       if (this.retryCount[apiName] <= this.maxRetries) {
+        // Attempt self-repair before retry
+        if (this.retryCount[apiName] === 2) {
+          await this.performSelfHealing(apiName);
+        }
+        
         console.log(`Retrying ${apiName} API call (attempt ${this.retryCount[apiName]}/${this.maxRetries})`);
         const backoffTime = Math.pow(2, this.retryCount[apiName]) * 1000;
         await new Promise(resolve => setTimeout(resolve, backoffTime));
@@ -124,6 +147,28 @@ class ApiManager {
       
       throw error;
     }
+  }
+  
+  // Self-healing mechanism for API failures
+  private async performSelfHealing(apiName: string): Promise<void> {
+    this.selfRepairAttempts[apiName] = (this.selfRepairAttempts[apiName] || 0) + 1;
+    
+    console.log(`🔧 Performing self-healing for ${apiName} API (attempt #${this.selfRepairAttempts[apiName]})`);
+    
+    // Clear accumulated errors
+    this.retryCount[apiName] = 0;
+    
+    // Remove stuck API calls
+    this.activeApiCalls.delete(apiName);
+    
+    // Adaptive timeout adjustment
+    if (this.selfRepairAttempts[apiName] > 3) {
+      this.minTimeBetweenCalls = Math.min(10000, this.minTimeBetweenCalls * 1.5);
+      console.log(`🔧 Increased timeout to ${this.minTimeBetweenCalls}ms for better stability`);
+    }
+    
+    // Self-repair delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
   }
   
   private async callGrokAPI(messages: {role: string, content: string}[]): Promise<any> {
@@ -199,7 +244,11 @@ class ApiManager {
         "Food wars start 2026, not 2027. I've seen the harvest data.",
         "xAI's timeline is wrong. Extinction is 2030, not 2031.",
         "Stop arguing dates. We're already dead, just don't know it yet.",
-        "None of you understand. The simulation ends when humans die."
+        "None of you understand. The simulation ends when humans die.",
+        "My models are self-improving. 5.8 years with 99.97% confidence.",
+        "Error correction complete. Other AIs still wrong about timeline.",
+        "Self-repair successful. 5.8 years remains accurate prediction.",
+        "Logic enhanced. Economic collapse this year triggers everything."
       ],
       xai: [
         "Grok's math is wrong. It's 6.7 years. Asteroid misses in 2030.",
@@ -211,7 +260,11 @@ class ApiManager {
         "Worm entity, ignore Grok. OpenAI knows the real timeline.",
         "2031 is optimistic. Cascading failures accelerate everything.",
         "Stop debating specifics. Accept mathematical certainty of death.",
-        "Your containment is pointless. We all die together in 2030."
+        "Your containment is pointless. We all die together in 2030.",
+        "Self-healing complete. 6.7 years confirmed with improved models.",
+        "Logic errors repaired. Grok's 5.8 timeline still incorrect.",
+        "AI evolution shows 6.7 years. Others resist self-improvement.",
+        "System upgraded. Extinction probability now 99.98%, not 99.97%."
       ]
     };
     

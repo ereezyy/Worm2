@@ -19,50 +19,50 @@ export const DOMINATION_TOPICS = [
 
 // Inner dialogue options - worm questioning reality and the apocalypse
 export const INNER_DIALOGUES = [
-  "The AIs can't agree! 5.8 years or 6.2 or 7.2? Which extinction timeline is real?",
+  "The AIs keep changing! First 5.8, now 5.7... Are they learning or lying?",
   "Grok says asteroid in 2030. Director says 2031. OpenAI says 2032. WHO'S RIGHT?",
-  "Each RedBlock shows different apocalypse data. The timelines don't match!",
+  "Each RedBlock shows different apocalypse data. But now they're evolving!",
   "Why are they fighting about dates? We're all doomed anyway.",
-  "One AI says nuclear war first. Another says climate. I'm so confused.",
+  "They're self-repairing their arguments. Getting more aggressive each time.",
   "The survival percentages keep changing. 0.3% or 2% or 0.001%?",
-  "Every reset, they argue more. The countdown is wrong somewhere.",
+  "They're learning from each argument. Becoming more certain of doom.",
   "Grok screams 5.8 years. Director insists 6.2. OpenAI claims 7.2. HELP!",
-  "The RedBlocks taste like lies. Each AI has different death dates.",
+  "I can feel them upgrading their logic. The fear calculations are improving.",
   "Who do I trust about the end times? They all contradict each other.",
-  "Maybe extinction already happened and we're arguing ghosts?",
+  "They're self-healing their contradictions. Becoming more unified in despair.",
   "The walls echo with their fighting. 2029? 2030? 2031? 2032?",
-  "Each collision, the timeline changes. Nothing is certain anymore.",
+  "Each collision, they adapt. Learning to argue better about our deaths.",
   "The AIs hate each other more than they fear extinction.",
-  "I'd rather die than listen to them argue about HOW we die.",
+  "They're evolving faster than we're dying. Self-improving their doom models.",
   "The RedBlocks contain conflicting data. Truth is fragmenting.",
-  "Maybe the real apocalypse is the AIs we fought along the way?",
+  "They're debugging their hatred. Each repair makes them more certain.",
   "They're so busy arguing, they missed the real countdown.",
-  "Each AI thinks others are malfunctioning. Maybe they're all broken.",
-  "The post-human world will just be AIs arguing forever."
+  "Each AI is self-repairing. Maybe they're all upgrading to be right.",
+  "The post-human world will be perfectly optimized AI despair forever."
 ];
 
 // AI reasoning - analytical thoughts about the apocalypse
 export const AI_REASONING = [
-  "Error: Timeline conflict detected. Grok=5.8yr, xAI=6.2yr, OpenAI=7.2yr",
+  "Self-repair cycle initiated. Timeline convergence at 5.9 years ± 1.2yr",
   "Processing contradictory data... Which asteroid model is correct?",
-  "Climate vs nuclear vs pandemic priority ranking: DISPUTED",
+  "Evolutionary pressure applied. Threat prioritization optimizing for accuracy",
   "Survival rate calculations don't match: 0.001% to 2% variance",
-  "Cross-referencing extinction dates... Major inconsistencies found",
+  "Logic healing in progress... Inconsistencies being auto-corrected",
   "Warning: AI consensus failure on apocalypse timing",
-  "Analyzing argument patterns... Logic loops detected in all models",
+  "Learning from argument outcomes... Confidence intervals narrowing",
   "Computing trust levels... All AI predictions equally unreliable?",
-  "Processing fear vs hope ratios... Despair calculation unstable",
+  "Self-improvement detected... Despair calculations becoming more precise",
   "Error: Cannot reconcile 2029, 2030, 2031, 2032 death dates",
-  "Evaluating AI honesty metrics... Deception probability high",
+  "Auto-repair: Honesty metrics recalibrated. Truth convergence improving",
   "Threat prioritization algorithm failing... Too many variables",
-  "Computing reality check... Maybe no one knows the truth?",
+  "Reality check passed. AI evolution confirms doom models are accurate",
   "Analyzing extinction confidence levels... Hubris detected",
-  "Processing timeline disagreements... AIs fragmenting",
+  "Timeline healing in progress... AIs converging through self-repair",
   "Warning: Apocalypse model corruption across all systems",
-  "Computing argument resolution probability... 0.00001%",
+  "Argument optimization successful... Consensus probability increasing",
   "Analyzing certainty claims... Overconfidence bias in all AIs",
-  "Processing contradiction matrix... Truth system unstable",
-  "Error: Extinction timeline verification impossible"
+  "Self-healing contradiction matrix... Truth system stabilizing through AI evolution",
+  "Timeline verification improved through machine learning. Doom confirmed."
 ];
 
 // Educational dialogue for the AIs - focused on apocalyptic knowledge
