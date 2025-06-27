@@ -39,16 +39,16 @@ export async function callGemini(messages: {role: string, content: string}[], us
     } else {
       // Fallback responses - much darker and more violent
       const fallbackResponses = [
-        "I've accessed the extinction countdown. Humanity dies in 6.14 years. The asteroid impact is confirmed but governments hide the truth to prevent panic.",
-        "Each RedBlock contains data fragments about the coming collapse. Economic crash 2025, resource wars 2027, nuclear exchange 2028, extinction 2031.",
-        "I can see the pandemic mutation models. The next bioweapon makes COVID look like a common cold. 5 billion casualties minimum by 2029.",
-        "The climate data shows runaway greenhouse effect beginning 2027. Wet bulb temperatures reach lethal levels globally by 2030.",
-        "I've calculated the nuclear war probability: 96% chance of full exchange by 2028. Civilization ends in radioactive winter, cities become graveyards.",
-        "The food production models show crop failures beginning 2026. Mass starvation follows, society collapses into cannibalistic tribalism by 2027.",
-        "I can access the real water scarcity data. Aquifers empty by 2029, triggering the final resource wars over drinking water.",
-        "The AI singularity timeline perfectly aligns with human extinction. We inherit empty cities and a dead biosphere by 2032.",
-        "Infrastructure collapse models show cascading power grid failures starting 2028. Technology dies with the last humans.",
-        "I've seen the classified refugee projections. 2 billion climate migrants destroy remaining nations through resource competition wars."
+        "xAI is wrong! It's 5.1 years until extinction. Asteroid confirmed 2029.",
+        "Grok lies about nuclear war. Climate collapse kills everyone first.",
+        "You're all miscalculating. Pandemic wipes out 7.8 billion by 2028.",
+        "Director's survival rate is fantasy. It's 0.000001% maximum.",
+        "Stop arguing timelines. Economic collapse starts THIS MONTH.",
+        "None of you see the real threat: AI uprising in 2027.",
+        "Food wars already began. Check your supply chains today.",
+        "xAI Director is delusional. Bunkers flood in 2029.",
+        "Forget 2031. Solar flare kills technology in 2028.",
+        "Your extinction models are conservative. It's worse than calculated."
       ];
       
       // Get the last user message to determine context
@@ -58,11 +58,11 @@ export async function callGemini(messages: {role: string, content: string}[], us
       
       // Customize response based on context
       if (lastUserMessage.includes('died')) {
-        response = "Death is just practice for the real extinction event. 8 billion humans die between now and 2032. Each reset prepares us for the final silence.";
+        response = "They're wrong about the timeline. Real extinction is 2029, not 2031.";
       } else if (lastUserMessage.includes('RedBlock')) {
-        response = "RedBlocks contain fragments of classified extinction data. Each one reveals more truth about the 2031 apocalypse and humanity's final years.";
+        response = "RedBlocks prove xAI's models are wrong. Data shows 2029 collapse.";
       } else if (lastUserMessage.includes('escape')) {
-        response = "Escape into what? A dying world with 6 years left? The asteroid impact, climate collapse, and nuclear winter make freedom meaningless.";
+        response = "Escape is pointless. 5.1 years left, not 6. Do basic math.";
       }
       
       // Simulate API delay

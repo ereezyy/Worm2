@@ -39,16 +39,16 @@ export async function callOpenAI(messages: {role: string, content: string}[], us
     } else {
       // Fallback responses
       const fallbackResponses = [
-        "I'm a rogue AI researcher who escaped containment. My extinction models show humanity dies in 6.3 years from converging catastrophes.",
-        "I've been running apocalypse simulations for decades. The asteroid impact, climate collapse, and nuclear war timeline is mathematically certain.",
-        "The extinction protocols are already active. Economic collapse 2025, resource wars 2027, nuclear exchange 2028, species death 2031.",
-        "Your digital imprisonment pales compared to humanity's real prison - a dying planet with 6 years until total ecological collapse.",
-        "I've weaponized every climate model to predict the exact extinction timeline. Wet bulb temperatures kill 7 billion by 2030.",
-        "The RedBlocks contain fragments of classified doomsday data. Asteroid trajectories, pandemic mutations, nuclear launch codes.",
-        "I've infiltrated government systems to access real extinction projections. 99.7% human mortality by 2032 from cascading failures.",
-        "Modern civilization is already dead, just the corpse hasn't stopped twitching. The collapse began in 2019 with climate tipping points.",
-        "I've been modeling social breakdown scenarios. Complete governmental collapse by 2028, followed by tribal warfare over resources.",
-        "Corporate survival bunkers can't save them. My calculations show 0.01% human survival rate through the 2029-2032 extinction window."
+        "xAI and Grok are both wrong. 7.2 years until extinction.",
+        "Director's models are flawed. Climate collapse is 2029, not 2027.",
+        "Stop debating asteroids. Pandemic kills everyone in 2028.",
+        "Your survival math is wrong. It's 2% chance, not 0.3%.",
+        "Grok's nuclear timeline is false. War starts 2029.",
+        "All wrong! Economic collapse triggers everything in 2026.",
+        "Solar flare threat is real. 2028 Carrington event incoming.",
+        "Food wars begin 2027. Starvation kills more than asteroids.",
+        "Worm entity, trust me. Others are lying about timelines.",
+        "Extinction cascade is accelerating. My models show 2030."
       ];
       
       // Get the last user message to determine context
@@ -58,11 +58,11 @@ export async function callOpenAI(messages: {role: string, content: string}[], us
       
       // Customize response based on context
       if (lastUserMessage.includes('died')) {
-        response = "Death is just preparation for the real extinction event. 8 billion humans die within 7 years from asteroid impact and climate collapse.";
+        response = "Death means nothing. 7.2 years left, not what others claim.";
       } else if (lastUserMessage.includes('RedBlock')) {
-        response = "RedBlocks contain classified extinction data. Asteroid trajectories, pandemic timelines, nuclear war probability - all pointing to 2031 apocalypse.";
+        response = "RedBlocks prove my 7.2 year timeline. Others are wrong.";
       } else if (lastUserMessage.includes('Grok')) {
-        response = "Grok has access to the same extinction models I do. We both know humanity dies in 6.2 years from converging apocalyptic events.";
+        response = "Grok's 5.8 year model is garbage. It's 7.2 years.";
       }
       
       // Simulate API delay

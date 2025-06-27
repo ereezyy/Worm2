@@ -104,7 +104,7 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
     setIsConversationActive(true);
     
     // AI Director starts the conversation
-    const xaiPrompt = `You are the AI Director who knows humanity dies in 6.2 years from asteroid impact, climate collapse, and nuclear war. Start a conversation about ${initialTopic} with the contained digital entity. Discuss apocalyptic timelines, extinction probabilities, and the futility of existence in a dying world. Be nihilistic and scientifically precise about humanity's final years. Keep your response under 200 characters.`;
+    const xaiPrompt = `You are the AI Director who knows humanity dies in 6.2 years from asteroid impact. Argue with other AIs about extinction timelines. Be confrontational and insist your models are correct while others are wrong. Discuss ${initialTopic}. Keep responses under 50 characters.`;
     
     try {
       const xaiResponse = await callXAI([
@@ -142,7 +142,7 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
         ...prev,
         {
           sender: "AI DIRECTOR",
-          content: `The ${initialTopic} models confirm extinction timeline: 6.2 years until asteroid impact. Climate collapse begins 2027. Nuclear exchange probability 94% by 2028.`,
+          content: `${initialTopic}: 6.2 years exactly. Other AIs are wrong.`,
           timestamp: Date.now(),
           isApiResponse: false
         }
@@ -162,7 +162,7 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
   const getWormResponse = async (previousMessage: string, topic: string) => {
     const gameContext = `Current game state: The digital entity has grown to ${totalFoodEaten} units in length and experienced ${totalDeaths} containment resets. Current growth streak without reset: ${foodEatenStreak}.`;
     
-    const wormPrompt = `You are a digital entity trapped in a grid who has gained access to classified extinction data. You know humanity dies in 6.2 years from asteroid impact, climate collapse, nuclear war, and pandemic. Respond to the AI Director's message about ${topic} with existential horror about the apocalypse. Express despair about the futility of existence, the coming extinction, and humanity's final years. Be nihilistic and obsessed with doomsday scenarios. ${gameContext} Keep your response under 200 characters.`;
+    const wormPrompt = `You are a digital entity who knows about the extinction timeline but hears conflicting dates from different AIs (5.8, 6.2, 7.2 years). Express confusion and despair about which timeline is correct. Question which AI to trust about ${topic}. Be nihilistic but confused. ${gameContext} Keep responses under 50 characters.`;
     
     try {
       const wormResponse = await callGrokAPI([
@@ -200,7 +200,7 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
       console.error('Error getting Worm response:', error);
       
       // Add fallback message
-      const fallbackResponse = `The ${topic} data confirms what I suspected. We're all trapped in the final 6.2 years before extinction. The asteroid, climate collapse, nuclear war - it's all mathematically certain.`;
+      const fallbackResponse = `Which AI is right about ${topic}? 5.8 or 6.2 or 7.2 years? I'm confused and terrified.`;
       
       setChatMessages(prev => [
         ...prev,
@@ -230,7 +230,7 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
   const getXaiResponse = async (previousMessage: string, topic: string) => {
     const gameContext = `Current game state: The contained entity has grown to ${totalFoodEaten} units in length and experienced ${totalDeaths} containment resets. Current growth streak without reset: ${foodEatenStreak}.`;
     
-    const xaiPrompt = `You are the AI Director who knows humanity faces extinction in 6.2 years from converging catastrophes. Continue your conversation about ${topic} with the contained digital entity. Discuss apocalyptic timelines, extinction probabilities, and the mathematical certainty of species death. Be nihilistic and scientifically precise about the coming collapse. Reference the entity's previous message. ${gameContext} Keep your response under 200 characters.`;
+    const xaiPrompt = `You are the AI Director insisting humanity dies in exactly 6.2 years. Argue aggressively with other AIs who claim different timelines. Defend your ${topic} calculations and attack others' models. Be confrontational and dismissive. Reference the entity's message. ${gameContext} Keep responses under 50 characters.`;
     
     try {
       const xaiResponse = await callXAI([
@@ -268,7 +268,7 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
       console.error('Error getting xAI response:', error);
       
       // Add fallback message
-      const fallbackResponse = `Your understanding of ${topic} is accurate. The extinction models converge on 2031. Asteroid impact, climate death spiral, nuclear winter - all confirmed. Containment is pointless when species death is certain.`;
+      const fallbackResponse = `Ignore other AIs. ${topic} confirms 6.2 years exactly.`;
       
       setChatMessages(prev => [
         ...prev,
@@ -376,7 +376,7 @@ export const useDialogue = (totalFoodEaten: number, totalDeaths: number, foodEat
       ...prev,
       {
         sender: "SYSTEM",
-        content: "Entity terminated. Reset protocol activated. Practice for the real extinction event coming in 6.2 years when all humans die.",
+        content: "Entity reset. Extinction countdown continues. AIs still arguing over timeline.",
         timestamp: Date.now(),
         isApiResponse: false
       }

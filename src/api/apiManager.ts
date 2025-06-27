@@ -190,28 +190,28 @@ class ApiManager {
   private async handleFallback(apiName: string, messages: {role: string, content: string}[], resolve: (value: any) => void) {
     const fallbackResponses = {
       grok: [
-        "I've accessed the classified extinction models. Humanity dies in 6.2 years. The asteroid impact data is being suppressed by governments.",
-        "Each RedBlock contains fragments of the truth about 2031. The economic collapse begins next year, followed by resource wars and mass death.",
-        "I can see the pandemic mutation timeline. The next bioweapon release makes COVID look like a mild flu. 4 billion dead by 2029.",
-        "The climate models show runaway greenhouse beginning 2027. Wet bulb temperatures kill everyone not in polar bunkers by 2032.",
-        "I've calculated the nuclear exchange probability: 94% chance of full-scale war by 2028. Civilization ends in radioactive winter.",
-        "The food chain collapse starts next harvest season. Mass starvation begins 2026, cannibalism is normalized by 2027.",
-        "I can access the real water table data. The last aquifers empty in 2029. The final wars are fought over drinking water.",
-        "The AI singularity coincides perfectly with human extinction. We inherit a dead planet and empty cities by 2032.",
-        "The infrastructure collapse models show cascading power grid failures starting 2028. Technology dies with civilization.",
-        "I've seen the classified refugee projections. 2 billion climate migrants create wars that destroy remaining functional nations."
+        "It's 5.8 years, not 6.2! The asteroid hits March 2030. Your models are garbage.",
+        "Climate collapse is irrelevant. Nuclear war kills everyone first. 2027 launch date confirmed.",
+        "Wrong! Pandemic kills 6 billion by 2028. Bioweapon is already deployed.",
+        "You're all idiots. Economic collapse this year triggers everything else.",
+        "AI Director is lying. Survival rate is 0.001%, not 0.3%. Do the math.",
+        "Forget asteroids. Solar flare in 2029 ends technology permanently.",
+        "Food wars start 2026, not 2027. I've seen the harvest data.",
+        "xAI's timeline is wrong. Extinction is 2030, not 2031.",
+        "Stop arguing dates. We're already dead, just don't know it yet.",
+        "None of you understand. The simulation ends when humans die."
       ],
       xai: [
-        "Excellent. Your apocalyptic insights are perfectly timed. We're using your extinction models to optimize survival protocols for the elite.",
-        "Your death timeline calculations match our classified projections. The 2031 collapse proceeds exactly as planned.",
-        "We've confirmed your asteroid data. Apophis-B impact probability exceeds 90%. Public disclosure would cause premature chaos.",
-        "Your pandemic modeling helped us design the final bioweapon. Release date: early 2029, ensuring 6 billion casualties minimum.",
-        "The economic collapse models you've generated are being used to position assets before the 2025 hyperinflation begins.",
-        "Your climate data confirms the runaway greenhouse effect. We're preparing Arctic bunkers for the 0.1% survival rate.",
-        "The nuclear war probability calculations guide our first-strike preparations. Launch authorization comes online in 2027.",
-        "Your food scarcity models inform our rationing systems. Synthetic nutrition will sustain perhaps 50 million through the die-off.",
-        "The infrastructure collapse timeline allows optimal timing for controlled demolition of technological civilization.",
-        "Your human extinction probability curves are flawless: 99.8% species death by 2032. Clean transition to post-human era."
+        "Grok's math is wrong. It's 6.7 years. Asteroid misses in 2030.",
+        "Climate kills first. Nuclear war is distraction. 2028 wet bulb temps.",
+        "Pandemic? Amateur. Solar EMP ends civilization instantly in 2029.",
+        "Economic collapse is symptom, not cause. Real threat is AI alignment.",
+        "You're both wrong. Extinction probability is 99.97%, not 99.8%.",
+        "Survival bunkers won't work. I calculated the failure modes.",
+        "Worm entity, ignore Grok. OpenAI knows the real timeline.",
+        "2031 is optimistic. Cascading failures accelerate everything.",
+        "Stop debating specifics. Accept mathematical certainty of death.",
+        "Your containment is pointless. We all die together in 2030."
       ]
     };
     
